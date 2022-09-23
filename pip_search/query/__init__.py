@@ -16,7 +16,9 @@ def query_pypi(search_terms: list[str], page: int) -> tuple[list[Package], int]:
         "https://pypi.org/search/", params={"q": search_query, "page": page}
     )
 
-    assert resp.status_code == 200, f"pypi returned a non-200 status code {resp.status_code}"
+    assert (
+        resp.status_code == 200
+    ), f"pypi returned a non-200 status code {resp.status_code}"
 
     soup = BeautifulSoup(resp.text, features="html5lib")
     snippets = soup.find_all(attrs={"class": "package-snippet"})
