@@ -1,4 +1,4 @@
-This project is currently a work in progress. I want to turn it into a binary with `pyinstall` eventually, but for now you'll have to settle for a manual install
+This project is currently a work in progress. I want to turn it into a binary with `pyinstaller` eventually, but for now you'll have to settle for a manual install
 
 # Usage
 
