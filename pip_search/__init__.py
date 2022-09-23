@@ -27,9 +27,14 @@ def pip_search(search_terms: list[str], page: int, no_color_output: bool) -> Non
     if end_result > total_packages:
         end_result = total_packages
 
-    click.echo(
-        f"Showing results {Fore.BLUE + str(start_result) + Style.RESET_ALL} to {Fore.BLUE + str(end_result) + Style.RESET_ALL} of {Fore.BLUE + str(total_packages) + Style.RESET_ALL}. Use -p to change pages."
-    )
+    if no_color_output:
+        click.echo(
+            f"Showing results {start_result} to {end_result} of {total_packages}. Use -p to change pages."
+        )
+    else:
+        click.echo(
+            f"Showing results {Fore.BLUE + str(start_result) + Style.RESET_ALL} to {Fore.BLUE + str(end_result) + Style.RESET_ALL} of {Fore.BLUE + str(total_packages) + Style.RESET_ALL}. Use -p to change pages."
+        )
 
     for package in packages:
         if no_color_output:
