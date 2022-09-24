@@ -39,8 +39,31 @@ def test_color_output(name: str, version: str, description: str) -> None:
     )
 
 
-def test_from_package_snippet() -> None:
+@hypothesis.given(
+    name=hypothesis.strategies.builds(lambda: str(uuid4())),
+    version=hypothesis.strategies.builds(lambda: str(uuid4())),
+    description=hypothesis.strategies.builds(lambda: str(uuid4())),
+)
+def test_from_package_snippet(name: str, version: str, description: str) -> None:
     """
     Tests `Package.from_package_snippet`'s parsing
     """
-    soup = BeautifulSoup()
+    soup = BeautifulSoup(
+        f"""
+        <a class="package-snippet" href="/project/{name}/">
+            <h3 class="package-snippet__title">
+                <span class="package-snippet__name">{name}</span>
+                <span class="package-snippet__version">{version}</span>
+                <span class="package-snippet__created"><time data-controller="localized-time" data-localized-time-relative="true" data-localized-time-show-time="false" datetime="2022-07-28T13:20:27+0000">
+                    Jul 28, 2022
+                </time></span>
+            </h3>
+            <p class="package-snippet__description">{description}</p>
+        </a>
+        """,
+        features="html5lib",
+    )
+    pkg = Package.from_package_snippet(soup)
+    assert pkg.name == name
+    assert pkg.version == version
+    assert pkg.description == description
