@@ -6,6 +6,7 @@ Options:<br/>
   -p, --page INTEGER  Query a specific page number<br/>
   --no-color-output   Disables colorized output<br/>
   --help              Prints a help message<br/>
+  -j, --json          Outputs computer-readable JSON<br/>
 
 
 # MANUAL INSTALLATION STEPS
