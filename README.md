@@ -1,5 +1,3 @@
-This project is currently a work in progress. I want to turn it into a binary with `pyinstaller` eventually, but for now you'll have to settle for a manual install
-
 # Usage
 
 python pip-search.py [OPTIONS] SEARCH_TERMS...
