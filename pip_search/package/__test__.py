@@ -1,11 +1,12 @@
 from uuid import uuid4
 from textwrap import dedent
+import json
 
 from bs4 import BeautifulSoup
 from colorama import init, Style, Fore
 import hypothesis
 
-from pip_search.package import Package
+from pip_search.package import Package, PackageEncoder
 
 init(autoreset=True)
 
@@ -67,3 +68,21 @@ def test_from_package_snippet(name: str, version: str, description: str) -> None
     assert pkg.name == name
     assert pkg.version == version
     assert pkg.description == description
+
+
+@hypothesis.given(
+    name=hypothesis.strategies.builds(lambda: str(uuid4())),
+    version=hypothesis.strategies.builds(lambda: str(uuid4())),
+    description=hypothesis.strategies.builds(lambda: str(uuid4())),
+)
+def test_encode_package(name: str, version: str, description: str) -> None:
+    """
+    Tests `PackageEncoder` class
+    """
+    pkg = Package(name=name, version=version, description=description)
+
+    pkg_json = json.dumps(pkg, cls=PackageEncoder)
+    deserialized_pkg = json.loads(pkg_json)
+    assert deserialized_pkg["name"] == name
+    assert deserialized_pkg["version"] == version
+    assert deserialized_pkg["description"] == description

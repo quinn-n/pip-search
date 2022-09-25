@@ -1,4 +1,5 @@
 from textwrap import dedent
+from json import JSONEncoder
 
 import attr
 from bs4 import Tag
@@ -45,3 +46,16 @@ class Package:
             f"{Style.BRIGHT + self.name} {Fore.GREEN + self.version}\n"
             f"    {Style.RESET_ALL + self.description}"
         )
+
+
+class PackageEncoder(JSONEncoder):
+    """
+    JSON serializer for `Package` class
+    """
+
+    def default(self, o: Package) -> dict[str, str]:
+        return {
+            "name": o.name,
+            "version": o.version,
+            "description": o.description,
+        }
