@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pip-search"
-version = "0.1.0"
+version = "1.0.0"
 description = "Script to search pip packages via http"
 authors = ["quinn-n <quinnneufeld@protonmail.com>"]
 license = "WTFPL"
