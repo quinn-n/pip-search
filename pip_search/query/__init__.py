@@ -20,7 +20,7 @@ def query_pypi(search_terms: list[str], page: int) -> tuple[list[Package], int]:
         resp.status_code == 200
     ), f"pypi returned a non-200 status code {resp.status_code}"
 
-    soup = BeautifulSoup(resp.text, features="html5lib")
+    soup = BeautifulSoup(resp.text, features="html.parser")
     snippets = soup.find_all(attrs={"class": "package-snippet"})
     total_packages = get_total_packages(soup)
 
